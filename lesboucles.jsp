@@ -63,29 +63,44 @@
 <p>Ecrire le code afin de produire un triangle rectangle aligné sur la droite</p>
 <p>Exemple si l'utilisateur saisie le valeur 5</p>
 <p>
-    <% for (int i = 1; i <= cpt; i++) { %>  
-        <% for (int j = 1; j <= cpt - i; j++) { %> 
-            <%= " " %> 
+    <% for (int i = 1; i <= cpt; i++) { %>  <!-- Boucle pour chaque ligne -->
+        <% for (int j = 1; j <= cpt - i; j++) { %>  <!-- Espaces avant les étoiles -->
+            <%= " " %>  <!-- Afficher un espace -->
         <% } %>
-        <% for (int k = 1; k <= i; k++) { %>  
-            <%= "*" %>  
+        <% for (int k = 1; k <= i; k++) { %>  <!-- Affichage des étoiles -->
+            <%= "*" %>  <!-- Afficher une étoile -->
         <% } %>
-        <br/> 
+        <br/>  <!-- Passer à la ligne suivante -->
     <% } %>
 </p>
 
 <h2>Exercice 5 : Triangle isocele</h2>
 <p>Ecrire le code afin de produire un triangle rectangle aligné sur la droite</p>
 <p>Exemple si l'utilisateur saisie le valeur 5</p>
-<p><% for (int i = 1; i <= cpt; i++) { %>  
-        <% for (int j = 1; j <= cpt - i; j++) { %>  
-            <%= " " %>  
-        <% } %>
-        <% for (int k = 1; k <= i; k++) { %>  
-            <%= "*" %> 
-        <% } %>
-        <br/>  
-    <% } %>
+<p>
+    <% 
+    for (int i = 1; i <= cpt; i++) { 
+    %>  
+        <% 
+        for (int j = 1; j <= cpt - i; j++) { 
+        %>  
+            <%= " " %>  <!-- Afficher un espace -->
+        <% 
+        } 
+        %>
+
+        <% 
+        for (int k = 1; k <= i; k++) { 
+        %>  
+            <%= "*" %>  <!-- Afficher une étoile -->
+        <% 
+        } 
+        %>
+
+        <br/> 
+    <% 
+    } 
+    %>
 </p>
 
 <h2>Exercice 6 : Le demi losange</h2>

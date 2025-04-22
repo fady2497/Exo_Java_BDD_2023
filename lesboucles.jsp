@@ -64,11 +64,14 @@
 <p>Exemple si l'utilisateur saisie le valeur 5</p>
 
 <p>
-    <% for (int i = 1; i <= cpt; i++) { %>  <!-- Boucle pour chaque ligne -->
-        <% for (int j = 1; j <= i; j++) { %>  <!-- Afficher les étoiles -->
+    <% for (int i = 1; i <= cpt; i++) { %>  
+        <% for (int j = 1; j <= cpt - i; j++) { %>  
+            <%= "&nbsp;" %>  
+        <% } %>
+        <% for (int j = 1; j <= i; j++) { %> 
             <%= "*" %>
         <% } %>
-        <br/> <!-- Passer à la ligne suivante -->
+        <br/> 
     <% } %>
 </p>
 <h2>Exercice 5 : Triangle isocele</h2>

@@ -63,12 +63,17 @@
 <p>Ecrire le code afin de produire un triangle rectangle aligné sur la droite</p>
 <p>Exemple si l'utilisateur saisie le valeur 5</p>
 <p>
-    <% for (int i = 1; i <= cpt; i++) { %>  <!-- Boucle pour chaque ligne -->
-        <%= " ".repeat(cpt - i) %> <!-- Espacement avant les étoiles -->
-        <%= "*".repeat(i) %>  <!-- Afficher les étoiles -->
-        <br/> <!-- Passer à la ligne suivante -->
+            <% for (int i = 1; i <= cpt; i++) { %>  
+                <% for (int j = 1; j <= cpt - i; j++) { %>  <!-- Espaces avant les étoiles -->
+                    <%= " " %>
+                <% } %>
+                <% for (int k = 1; k <= i; k++) { %>  <!-- Étoiles -->
+                    <%= "*" %>
+                <% } %>
+                <br/>
+            <% } %>
+        </p>
     <% } %>
-</p>
 <h2>Exercice 5 : Triangle isocele</h2>
 <p>Ecrire le code afin de produire un triangle rectangle aligné sur la droite</p>
 <p>Exemple si l'utilisateur saisie le valeur 5</p>

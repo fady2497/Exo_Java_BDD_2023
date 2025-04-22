@@ -64,16 +64,11 @@
 <p>Exemple si l'utilisateur saisie le valeur 5</p>
 <p>
     <% for (int i = 1; i <= cpt; i++) { %>  <!-- Boucle pour chaque ligne -->
-        <% for (int j = 1; j <= cpt - i; j++) { %>  <!-- Espaces avant les étoiles -->
-            <%= " " %>  <!-- Afficher un espace -->
-        <% } %>
-        <% for (int k = 1; k <= i; k++) { %>  <!-- Affichage des étoiles -->
-            <%= "*" %>  <!-- Afficher une étoile -->
-        <% } %>
-        <br/>  <!-- Passer à la ligne suivante -->
+        <%= " ".repeat(cpt - i) %> <!-- Espacement avant les étoiles -->
+        <%= "*".repeat(i) %>  <!-- Afficher les étoiles -->
+        <br/> <!-- Passer à la ligne suivante -->
     <% } %>
 </p>
-
 <h2>Exercice 5 : Triangle isocele</h2>
 <p>Ecrire le code afin de produire un triangle rectangle aligné sur la droite</p>
 <p>Exemple si l'utilisateur saisie le valeur 5</p>

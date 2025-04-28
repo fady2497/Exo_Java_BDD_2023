@@ -17,7 +17,7 @@
     <% if (jeu.estGagne()) { %>
         <h2>Bravo, vous avez gagné ! Le mot était <%= jeu.getMotActuel() %></h2>
     <% } else { %>
-        <h2>Dommage, vous avez perdu !</h2>
+        <h2>Dommage, vous avez perdu ! Le mot était <%= jeu.getMotActuel() %></h2>
     <% } %>
 
     <a href="index.jsp">Rejouer</a>

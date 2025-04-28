@@ -1,30 +1,16 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<html>
-<head>
-    <title>Les tableaux</title>
-</head>
-<body bgcolor="white">
-<h1>Exercices sur les tableaux</h1>
-
-<form action="#" method="post">
-    <p>Saisir au minimum 3 chiffres séparés par un espace, exemple : 6 78 15</p>
-    <input type="text" name="chaine">
-    <input type="submit" value="Afficher">
-</form>
-
 <%
     String chaine = request.getParameter("chaine");
     if (chaine != null && !chaine.trim().isEmpty()) {
-        // Découper la chaine et convertir en int
         String[] tableauDeChiffres = chaine.trim().split("\\s+");
-        int[] valeurs = new int[tableauDeChiffres.length];
-        for (int i = 0; i < tableauDeChiffres.length; i++) {
-            try {
-                valeurs[i] = Integer.parseInt(tableauDeChiffres[i]);
-            } catch (NumberFormatException e) {
-                valeurs[i] = 0; // Si erreur, mettre 0
+        if (tableauDeChiffres.length >= 1) { 
+            int[] valeurs = new int[tableauDeChiffres.length];
+            for (int i = 0; i < tableauDeChiffres.length; i++) {
+                try {
+                    valeurs[i] = Integer.parseInt(tableauDeChiffres[i]);
+                } catch (NumberFormatException e) {
+                    valeurs[i] = 0;
+                }
             }
-        }
 %>
 
 <h2>Les valeurs saisies :</h2>
@@ -35,10 +21,18 @@
 </ul>
 
 <h2>Exercice 1 : Le carré de la première valeur</h2>
+<% if (valeurs.length >= 1) { %>
 <p>Résultat : <%= valeurs[0] * valeurs[0] %></p>
+<% } else { %>
+<p>Pas assez de valeurs saisies</p>
+<% } %>
 
 <h2>Exercice 2 : La somme des deux premières valeurs</h2>
+<% if (valeurs.length >= 2) { %>
 <p>Résultat : <%= valeurs[0] + valeurs[1] %></p>
+<% } else { %>
+<p>Pas assez de valeurs saisies</p>
+<% } %>
 
 <h2>Exercice 3 : La somme de toutes les valeurs</h2>
 <%
@@ -86,7 +80,7 @@
 <%
     int procheDeZero2 = valeurs[0];
     for (int v : valeurs) {
-        if (Math.abs(v) < Math.abs(procheDeZero2) || 
+        if (Math.abs(v) < Math.abs(procheDeZero2) ||
             (Math.abs(v) == Math.abs(procheDeZero2) && v > procheDeZero2)) {
             procheDeZero2 = v;
         }
@@ -94,11 +88,11 @@
 %>
 <p>Résultat : <%= procheDeZero2 %></p>
 
+<% 
+        } else {
+%>
+<p>Merci de saisir au moins 1 valeur pour pouvoir faire les exercices.</p>
 <%
+        }
     }
 %>
-
-<p><a href="index.html">Retour au sommaire</a></p>
-
-</body>
-</html>

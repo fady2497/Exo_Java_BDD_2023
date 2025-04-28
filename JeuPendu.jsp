@@ -7,27 +7,26 @@
     Integer essaisRestants = (Integer) session.getAttribute("essaisRestants");
 
     if (motSecret == null) {
-        // Début d'une nouvelle partie
+        
         String[] mots = {"PENDU", "JAVA", "ELEPHANT", "ORDINATEUR", "PROGRAMME", "INTERNET", "BANANE", "TOMATE", "VOITURE", "MONTAGNE"};
         Random rand = new Random();
         motSecret = mots[rand.nextInt(mots.length)];
         motActuel = new char[motSecret.length()];
         Arrays.fill(motActuel, '_');
-        lettresProposees = new ArrayList<Character>();
+        lettresProposes = new ArrayList<Character>();
         essaisRestants = 6;
 
         session.setAttribute("motSecret", motSecret);
         session.setAttribute("motActuel", motActuel);
-        session.setAttribute("lettresProposees", lettresProposees);
+        session.setAttribute("lettresProposes", lettresProposes);
         session.setAttribute("essaisRestants", essaisRestants);
     }
 
-    // Récupérer la lettre proposée
-    String lettreProposee = request.getParameter("lettre");
+    String lettrePropose = request.getParameter("lettre");
     if (lettreProposee != null && lettreProposee.length() == 1) {
         char lettre = Character.toUpperCase(lettreProposee.charAt(0));
-        if (!lettresProposees.contains(lettre)) {
-            lettresProposees.add(lettre);
+        if (!lettresProposes.contains(lettre)) {
+            lettresProposes.add(lettre);
             boolean trouve = false;
             for (int i = 0; i < motSecret.length(); i++) {
                 if (motSecret.charAt(i) == lettre) {
@@ -39,14 +38,12 @@
                 essaisRestants--;
             }
 
-            // Mettre à jour la session
             session.setAttribute("motActuel", motActuel);
-            session.setAttribute("lettresProposees", lettresProposees);
+            session.setAttribute("lettresProposes", lettresProposes);
             session.setAttribute("essaisRestants", essaisRestants);
         }
     }
 
-    // Vérification de victoire ou défaite
     boolean gagne = motSecret.equals(new String(motActuel));
     boolean perdu = essaisRestants <= 0;
 %>
@@ -72,7 +69,7 @@
                 <%= c %> 
             <% } %>
         </p>
-        <p>Lettres proposées : <%= lettresProposees %></p>
+        <p>Lettres proposés : <%= lettresProposes %></p>
         <p>Essais restants : <%= essaisRestants %></p>
 
         <form method="post">

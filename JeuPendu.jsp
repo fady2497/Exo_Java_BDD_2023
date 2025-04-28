@@ -1,6 +1,5 @@
 <%@ page import="java.util.*" %>
 <%
-    // Initialisation ou récupération de la partie en cours
     String motSecret = (String) session.getAttribute("motSecret");
     char[] motActuel = (char[]) session.getAttribute("motActuel");
     List<Character> lettresProposees = (List<Character>) session.getAttribute("lettresProposees");

@@ -9,7 +9,7 @@
 
     if (motSecret == null) {
         // Début d'une nouvelle partie
-        String[] mots = {"PENDU", "JAVA", "ELEPHANT", "ORDINATEUR", "PROGRAMME", "INTERNET", "BANANE", "TOMATE", "VOITURE", "MONTAGNE"};
+        String[] mots = {"PENDU","FADY","JAVA", "ELEPHANT", "ORDINATEUR", "PROGRAMME", "INTERNET", "BANANE", "TOMATE", "VOITURE", "MONTAGNE"};
         Random rand = new Random();
         motSecret = mots[rand.nextInt(mots.length)];
         motActuel = new char[motSecret.length()];

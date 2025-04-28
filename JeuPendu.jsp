@@ -1,4 +1,5 @@
 <%@ page import="java.util.*" %>
+<%@ page contentType="text/html; charset=UTF-8" %>  <!-- Ajout de l'encodage UTF-8 -->
 <%
     // Initialisation ou récupération de la partie en cours
     String motSecret = (String) session.getAttribute("motSecret");
@@ -51,6 +52,7 @@
     boolean perdu = essaisRestants <= 0;
 %>
 
+<!DOCTYPE html>
 <html>
 <head>
     <title>Jeu du Pendu</title>
@@ -60,11 +62,11 @@
 
     <% if (gagne) { %>
         <h2>Bravo ! Vous avez gagné ! Le mot était <%= motSecret %>.</h2>
-        <a href="JeuPendu.jsp">Rejouer</a>
+        <a href="jeupendu.jsp">Rejouer</a>
         <% session.invalidate(); %>
     <% } else if (perdu) { %>
         <h2>Dommage... Vous avez perdu. Le mot était <%= motSecret %>.</h2>
-        <a href="JeuPendu.jsp">Rejouer</a>
+        <a href="jeupendu.jsp">Rejouer</a>
         <% session.invalidate(); %>
     <% } else { %>
         <p>Mot actuel : 
@@ -72,7 +74,11 @@
                 <%= c %> 
             <% } %>
         </p>
-        <p>Lettres proposées : <%= lettresProposees %></p>
+        <p>Lettres proposées : 
+            <% for (Character lettre : lettresProposees) { %>
+                <%= lettre %> 
+            <% } %>
+        </p>
         <p>Essais restants : <%= essaisRestants %></p>
 
         <form method="post">

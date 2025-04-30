@@ -1,93 +1,97 @@
+<%@ page import="java.util.*" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ASCII Art Live avec Lettres et Chiffres</title>
+    <title>ASCII Art Java (lettres + chiffres)</title>
     <style>
-        body {
-            font-family: monospace;
-            background: #f0f0f0;
-            padding: 20px;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            font-size: 18px;
-        }
         textarea {
+            font-family: monospace;
             width: 100%;
             height: 180px;
-            font-family: monospace;
+            background: #f0f0f0;
+        }
+        input {
             font-size: 16px;
-            margin-top: 10px;
-            background: #fff;
+            padding: 5px;
+            width: 50%;
         }
     </style>
 </head>
 <body>
 
-<h2>Générateur ASCII Art (lettres et chiffres)</h2>
-<input type="text" id="textInput" placeholder="Tape ici ton texte (ex: 2025 PROJET)">
-<textarea id="asciiOutput" readonly></textarea>
+<h2>Générateur ASCII Art (Java côté serveur)</h2>
 
-<script>
-    const asciiArt = {
-        A: [" #  ", "# # ", "### ", "# # ", "# # "],
-        B: ["##  ", "# # ", "##  ", "# # ", "##  "],
-        C: [" ## ", "#   ", "#   ", "#   ", " ## "],
-        D: ["##  ", "# # ", "# # ", "# # ", "##  "],
-        E: ["### ", "#   ", "##  ", "#   ", "### "],
-        F: ["### ", "#   ", "##  ", "#   ", "#   "],
-        G: [" ## ", "#   ", "# # ", "# # ", " ## "],
-        H: ["# # ", "# # ", "### ", "# # ", "# # "],
-        I: ["### ", " #  ", " #  ", " #  ", "### "],
-        J: ["  # ", "  # ", "  # ", "# # ", " #  "],
-        K: ["# # ", "##  ", "#   ", "##  ", "# # "],
-        L: ["#   ", "#   ", "#   ", "#   ", "### "],
-        M: ["# # ", "### ", "### ", "# # ", "# # "],
-        N: ["# # ", "### ", "### ", "### ", "# # "],
-        O: [" #  ", "# # ", "# # ", "# # ", " #  "],
-        P: ["##  ", "# # ", "##  ", "#   ", "#   "],
-        Q: [" ## ", "# # ", "# # ", " ## ", "  # "],
-        R: ["##  ", "# # ", "##  ", "##  ", "# # "],
-        S: [" ## ", "#   ", " #  ", "  # ", "##  "],
-        T: ["### ", " #  ", " #  ", " #  ", " #  "],
-        U: ["# # ", "# # ", "# # ", "# # ", "### "],
-        V: ["# # ", "# # ", "# # ", "# # ", " #  "],
-        W: ["# # ", "# # ", "### ", "### ", "# # "],
-        X: ["# # ", "# # ", " #  ", "# # ", "# # "],
-        Y: ["# # ", "# # ", " #  ", " #  ", " #  "],
-        Z: ["### ", "  # ", " #  ", "#   ", "### "],
-        "0": ["### ", "# # ", "# # ", "# # ", "### "],
-        "1": [" #  ", "##  ", " #  ", " #  ", "### "],
-        "2": ["### ", "  # ", " #  ", "#   ", "### "],
-        "3": ["### ", "  # ", " ## ", "  # ", "### "],
-        "4": ["# # ", "# # ", "### ", "  # ", "  # "],
-        "5": ["### ", "#   ", "##  ", "  # ", "##  "],
-        "6": [" ## ", "#   ", "##  ", "# # ", "##  "],
-        "7": ["### ", "  # ", " #  ", "#   ", "#   "],
-        "8": ["### ", "# # ", "### ", "# # ", "### "],
-        "9": ["##  ", "# # ", "##  ", "  # ", " #  "],
-        " ": ["    ", "    ", "    ", "    ", "    "],
-        "?": ["??? ", "??? ", "??? ", "??? ", "??? "]
-    };
+<form method="post">
+    <input type="text" name="text" placeholder="Tape ici ton texte (ex: LE 123)">
+    <input type="submit" value="Générer">
+</form>
 
-    const input = document.getElementById("textInput");
-    const output = document.getElementById("asciiOutput");
+<%
+    String inputText = request.getParameter("text");
+    if (inputText != null) {
+        inputText = inputText.toUpperCase();
 
-    input.addEventListener("input", () => {
-        const text = input.value.toUpperCase();
-        const lines = ["", "", "", "", ""];
+        Map<Character, String[]> asciiArt = new HashMap<>();
+        asciiArt.put('A', new String[]{" #  ", "# # ", "### ", "# # ", "# # "});
+        asciiArt.put('B', new String[]{"##  ", "# # ", "##  ", "# # ", "##  "});
+        asciiArt.put('C', new String[]{" ## ", "#   ", "#   ", "#   ", " ## "});
+        asciiArt.put('D', new String[]{"##  ", "# # ", "# # ", "# # ", "##  "});
+        asciiArt.put('E', new String[]{"### ", "#   ", "##  ", "#   ", "### "});
+        asciiArt.put('F', new String[]{"### ", "#   ", "##  ", "#   ", "#   "});
+        asciiArt.put('G', new String[]{" ## ", "#   ", "# # ", "# # ", " ## "});
+        asciiArt.put('H', new String[]{"# # ", "# # ", "### ", "# # ", "# # "});
+        asciiArt.put('I', new String[]{"### ", " #  ", " #  ", " #  ", "### "});
+        asciiArt.put('J', new String[]{"  # ", "  # ", "  # ", "# # ", " #  "});
+        asciiArt.put('K', new String[]{"# # ", "##  ", "#   ", "##  ", "# # "});
+        asciiArt.put('L', new String[]{"#   ", "#   ", "#   ", "#   ", "### "});
+        asciiArt.put('M', new String[]{"# # ", "### ", "### ", "# # ", "# # "});
+        asciiArt.put('N', new String[]{"# # ", "### ", "### ", "### ", "# # "});
+        asciiArt.put('O', new String[]{" #  ", "# # ", "# # ", "# # ", " #  "});
+        asciiArt.put('P', new String[]{"##  ", "# # ", "##  ", "#   ", "#   "});
+        asciiArt.put('Q', new String[]{" ## ", "# # ", "# # ", " ## ", "  # "});
+        asciiArt.put('R', new String[]{"##  ", "# # ", "##  ", "##  ", "# # "});
+        asciiArt.put('S', new String[]{" ## ", "#   ", " #  ", "  # ", "##  "});
+        asciiArt.put('T', new String[]{"### ", " #  ", " #  ", " #  ", " #  "});
+        asciiArt.put('U', new String[]{"# # ", "# # ", "# # ", "# # ", "### "});
+        asciiArt.put('V', new String[]{"# # ", "# # ", "# # ", "# # ", " #  "});
+        asciiArt.put('W', new String[]{"# # ", "# # ", "### ", "### ", "# # "});
+        asciiArt.put('X', new String[]{"# # ", "# # ", " #  ", "# # ", "# # "});
+        asciiArt.put('Y', new String[]{"# # ", "# # ", " #  ", " #  ", " #  "});
+        asciiArt.put('Z', new String[]{"### ", "  # ", " #  ", "#   ", "### "});
+        asciiArt.put('0', new String[]{"### ", "# # ", "# # ", "# # ", "### "});
+        asciiArt.put('1', new String[]{" #  ", "##  ", " #  ", " #  ", "### "});
+        asciiArt.put('2', new String[]{"### ", "  # ", " #  ", "#   ", "### "});
+        asciiArt.put('3', new String[]{"### ", "  # ", " ## ", "  # ", "### "});
+        asciiArt.put('4', new String[]{"# # ", "# # ", "### ", "  # ", "  # "});
+        asciiArt.put('5', new String[]{"### ", "#   ", "##  ", "  # ", "##  "});
+        asciiArt.put('6', new String[]{" ## ", "#   ", "##  ", "# # ", "##  "});
+        asciiArt.put('7', new String[]{"### ", "  # ", " #  ", "#   ", "#   "});
+        asciiArt.put('8', new String[]{"### ", "# # ", "### ", "# # ", "### "});
+        asciiArt.put('9', new String[]{"##  ", "# # ", "##  ", "  # ", " #  "});
+        asciiArt.put(' ', new String[]{"    ", "    ", "    ", "    ", "    "});
+        asciiArt.put('?', new String[]{"??? ", "??? ", "??? ", "??? ", "??? "});
 
-        for (let c of text) {
-            const art = asciiArt[c] || asciiArt["?"];
-            for (let i = 0; i < 5; i++) {
-                lines[i] += art[i] + " ";
+        String[] output = {"", "", "", "", ""};
+
+        for (char c : inputText.toCharArray()) {
+            String[] art = asciiArt.getOrDefault(c, asciiArt.get('?'));
+            for (int i = 0; i < 5; i++) {
+                output[i] += art[i] + " ";
             }
         }
+%>
 
-        output.value = lines.join("\n");
-    });
-</script>
+<h3>Résultat :</h3>
+<textarea readonly>
+<%= output[0] %>
+<%= output[1] %>
+<%= output[2] %>
+<%= output[3] %>
+<%= output[4] %>
+</textarea>
+
+<% } %>
 
 </body>
 </html>

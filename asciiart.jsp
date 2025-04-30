@@ -60,13 +60,21 @@
             output[i] = new StringBuilder();
         }
 
-        for (char c : input.toCharArray()) {
-            int index = (c >= 'A' && c <= 'Z') ? (c - 'A') : 26; // 26 = "?" pour les caractères non alphabétiques
-
-            for (int i = 0; i < H; i++) {
-                output[i].append(asciiLetters[i].substring(index * L, (index + 1) * L));
-            }
+       for (char c : input.toCharArray()) {
+    if (c == ' ') {
+        for (int i = 0; i < H; i++) {
+            output[i].append("    "); // 4 espaces vides pour espacement
         }
+        continue;
+    }
+
+    int index = (c >= 'A' && c <= 'Z') ? (c - 'A') : 26; // 26 = caractère inconnu
+
+    for (int i = 0; i < H; i++) {
+        output[i].append(asciiLetters[i].substring(index * L, (index + 1) * L));
+    }
+}
+
 %>
     <h2>Résultat :</h2>
     <pre>

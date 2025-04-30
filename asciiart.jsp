@@ -1,91 +1,83 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Générateur ASCII Art</title>
+    <title>ASCII Art Live</title>
     <style>
         body {
             font-family: monospace;
-            background-color: #f0f0f0;
+            background: #f0f0f0;
             padding: 20px;
         }
-        form {
-            margin-bottom: 20px;
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
         }
-        input[type=text] {
-            padding: 8px;
+        textarea {
+            width: 100%;
+            height: 180px;
+            font-family: monospace;
             font-size: 16px;
-        }
-        input[type=submit] {
-            padding: 8px 12px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        pre {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            padding: 15px;
-            display: inline-block;
+            margin-top: 10px;
+            background: #fff;
         }
     </style>
 </head>
 <body>
-    <h1>ASCII Art en Java/JSP</h1>
 
-    <form method="get">
-        <label for="inputText">Texte à convertir :</label><br>
-        <input type="text" id="inputText" name="inputText" value="<%= request.getParameter("inputText") != null ? request.getParameter("inputText") : "" %>" />
-        <input type="submit" value="Générer ASCII Art" />
-    </form>
+<h2>Générateur ASCII Art (Live)</h2>
+<input type="text" id="textInput" placeholder="Tape ici ton texte (ex: LE)">
+<textarea id="asciiOutput" readonly></textarea>
 
-<%
-   String input = request.getParameter("inputText");
-if (input != null && !input.trim().isEmpty()) {
-    input = input.toUpperCase();
-    out.println("Texte reçu : " + input); // <-- ligne de debug
+<script>
+    const asciiArt = {
+        A: [" #  ", "# # ", "### ", "# # ", "# # "],
+        B: ["##  ", "# # ", "##  ", "# # ", "##  "],
+        C: [" ## ", "#   ", "#   ", "#   ", " ## "],
+        D: ["##  ", "# # ", "# # ", "# # ", "##  "],
+        E: ["### ", "#   ", "##  ", "#   ", "### "],
+        F: ["### ", "#   ", "##  ", "#   ", "#   "],
+        G: [" ## ", "#   ", "# # ", "# # ", " ## "],
+        H: ["# # ", "# # ", "### ", "# # ", "# # "],
+        I: ["### ", " #  ", " #  ", " #  ", "### "],
+        J: ["  # ", "  # ", "  # ", "# # ", " #  "],
+        K: ["# # ", "##  ", "#   ", "##  ", "# # "],
+        L: ["#   ", "#   ", "#   ", "#   ", "### "],
+        M: ["# # ", "### ", "### ", "# # ", "# # "],
+        N: ["# # ", "### ", "### ", "### ", "# # "],
+        O: [" #  ", "# # ", "# # ", "# # ", " #  "],
+        P: ["##  ", "# # ", "##  ", "#   ", "#   "],
+        Q: [" ## ", "# # ", "# # ", " ## ", "  # "],
+        R: ["##  ", "# # ", "##  ", "##  ", "# # "],
+        S: [" ## ", "#   ", " #  ", "  # ", "##  "],
+        T: ["### ", " #  ", " #  ", " #  ", " #  "],
+        U: ["# # ", "# # ", "# # ", "# # ", "### "],
+        V: ["# # ", "# # ", "# # ", "# # ", " #  "],
+        W: ["# # ", "# # ", "### ", "### ", "# # "],
+        X: ["# # ", "# # ", " #  ", "# # ", "# # "],
+        Y: ["# # ", "# # ", " #  ", " #  ", " #  "],
+        Z: ["### ", "  # ", " #  ", "#   ", "### "],
+        " ": ["    ", "    ", "    ", "    ", "    "],
+        "?": ["??? ", "??? ", "??? ", "??? ", "??? "]
+    };
 
+    const input = document.getElementById("textInput");
+    const output = document.getElementById("asciiOutput");
 
-        int L = 4; // largeur d’une lettre
-        int H = 5; // hauteur des lettres
+    input.addEventListener("input", () => {
+        const text = input.value.toUpperCase();
+        const lines = ["", "", "", "", ""];
 
-        String[] asciiLetters = {
-            " #  ##   ##  # # ### ###  ##  ### ###  ##  ### ###  # # ### ### # # ### ### ### ", // Ligne 0
-            "# # # # #   # # #   #   # #    #     # # # #   #   # # # # #   # # #   #   # # ", // Ligne 1
-            "### ##  #   ### ### ###  #  ##  ###   # ### ### ### ### ###   # ###  ##  ### ",   // Ligne 2
-            "# # # # #   # # #     # #   # # # #   # # #   #   #   # # #   # # # #    # # ",   // Ligne 3
-            "# # ##   ## # # ### ###  ##  ### # #  ##  ### ###   #   #   ##  ### ### ### "    // Ligne 4
-        };
-
-        StringBuilder[] output = new StringBuilder[H];
-        for (int i = 0; i < H; i++) {
-            output[i] = new StringBuilder();
+        for (let c of text) {
+            const letter = asciiArt[c] || asciiArt["?"];
+            for (let i = 0; i < 5; i++) {
+                lines[i] += letter[i] + " ";
+            }
         }
 
-       for (char c : input.toCharArray()) {
-    if (c == ' ') {
-        for (int i = 0; i < H; i++) {
-            output[i].append("    "); // 4 espaces vides pour espacement
-        }
-        continue;
-    }
+        output.value = lines.join("\n");
+    });
+</script>
 
-    int index = (c >= 'A' && c <= 'Z') ? (c - 'A') : 26; // 26 = caractère inconnu
-
-    for (int i = 0; i < H; i++) {
-        output[i].append(asciiLetters[i].substring(index * L, (index + 1) * L));
-    }
-}
-
-%>
-    <h2>Résultat :</h2>
-    <pre>
-<%
-        for (int i = 0; i < H; i++) {
-            out.println(output[i].toString());
-        }
-    }
-%>
-    </pre>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ASCII Art Live</title>
+    <title>ASCII Art Live avec Lettres et Chiffres</title>
     <style>
         body {
             font-family: monospace;
@@ -25,8 +25,8 @@
 </head>
 <body>
 
-<h2>Générateur ASCII Art (Live)</h2>
-<input type="text" id="textInput" placeholder="Tape ici ton texte (ex: LE)">
+<h2>Générateur ASCII Art (lettres et chiffres)</h2>
+<input type="text" id="textInput" placeholder="Tape ici ton texte (ex: 2025 PROJET)">
 <textarea id="asciiOutput" readonly></textarea>
 
 <script>
@@ -57,6 +57,16 @@
         X: ["# # ", "# # ", " #  ", "# # ", "# # "],
         Y: ["# # ", "# # ", " #  ", " #  ", " #  "],
         Z: ["### ", "  # ", " #  ", "#   ", "### "],
+        "0": ["### ", "# # ", "# # ", "# # ", "### "],
+        "1": [" #  ", "##  ", " #  ", " #  ", "### "],
+        "2": ["### ", "  # ", " #  ", "#   ", "### "],
+        "3": ["### ", "  # ", " ## ", "  # ", "### "],
+        "4": ["# # ", "# # ", "### ", "  # ", "  # "],
+        "5": ["### ", "#   ", "##  ", "  # ", "##  "],
+        "6": [" ## ", "#   ", "##  ", "# # ", "##  "],
+        "7": ["### ", "  # ", " #  ", "#   ", "#   "],
+        "8": ["### ", "# # ", "### ", "# # ", "### "],
+        "9": ["##  ", "# # ", "##  ", "  # ", " #  "],
         " ": ["    ", "    ", "    ", "    ", "    "],
         "?": ["??? ", "??? ", "??? ", "??? ", "??? "]
     };
@@ -69,9 +79,9 @@
         const lines = ["", "", "", "", ""];
 
         for (let c of text) {
-            const letter = asciiArt[c] || asciiArt["?"];
+            const art = asciiArt[c] || asciiArt["?"];
             for (let i = 0; i < 5; i++) {
-                lines[i] += letter[i] + " ";
+                lines[i] += art[i] + " ";
             }
         }
 

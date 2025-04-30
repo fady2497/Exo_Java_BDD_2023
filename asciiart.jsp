@@ -40,9 +40,11 @@
     </form>
 
 <%
-    String input = request.getParameter("inputText");
-    if (input != null && !input.trim().isEmpty()) {
-        input = input.toUpperCase();
+   String input = request.getParameter("inputText");
+if (input != null && !input.trim().isEmpty()) {
+    input = input.toUpperCase();
+    out.println("Texte reçu : " + input); // <-- ligne de debug
+
 
         int L = 4; // largeur d’une lettre
         int H = 5; // hauteur des lettres

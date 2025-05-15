@@ -1,35 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.io.*" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Manipulation de chaînes</title>
-</head>
-<body>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+    // Déclaration de la chaîne
     String bonjour = "salut la compagnie";
 
-    // Affichage en majuscules
-    String majuscules = bonjour.toUpperCase();
+    // Transformation en majuscules
+    String enMajuscules = bonjour.toUpperCase();
 
-    // Fonction pour mettre la première lettre en majuscule
-    String capitaliser(String texte) {
-        if (texte == null || texte.isEmpty()) return texte;
-        return texte.substring(0, 1).toUpperCase() + texte.substring(1).toLowerCase();
-    }
-
-    String capitalise = capitaliser(bonjour);
+    // Mettre la première lettre en majuscule
+    String debutMajuscule = bonjour.substring(0, 1).toUpperCase() + bonjour.substring(1);
 %>
 
-<h2>Original :</h2>
-<p><%= bonjour %></p>
-
-<h2>Majuscules :</h2>
-<p><%= majuscules %></p>
-
-<h2>Première lettre en majuscule :</h2>
-<p><%= capitalise %></p>
-
+<html>
+<head>
+    <title>Exercice JSP - Chaînes de caractères</title>
+</head>
+<body>
+    <h1>Résultat de l'exercice sur les chaînes</h1>
+    <p><strong>Texte d'origine :</strong> <%= bonjour %></p>
+    <p><strong>En majuscules :</strong> <%= enMajuscules %></p>
+    <p><strong>Première lettre en majuscule :</strong> <%= debutMajuscule %></p>
 </body>
 </html>

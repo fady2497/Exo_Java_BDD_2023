@@ -1,17 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*" %>
 <%
-    // Initialiser la session
-    HttpSession session = request.getSession();
-
-    // Initialiser le tableau
+    // Initialiser le tableau depuis la session
     ArrayList<Integer> tableau = (ArrayList<Integer>) session.getAttribute("tableau");
     if (tableau == null) {
         tableau = new ArrayList<>();
         session.setAttribute("tableau", tableau);
     }
 
-    // Gérer les actions
     String action = request.getParameter("action");
     String message = "";
 

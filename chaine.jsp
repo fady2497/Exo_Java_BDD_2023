@@ -1,4 +1,3 @@
-String bonjour = "salut la compagnie";
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.io.*" %>
 <!DOCTYPE html>
